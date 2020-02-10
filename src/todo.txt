@@ -1,0 +1,8 @@
+1. move db code into another file
+2. add api endpoints to get / manipulate db data
+    a. add listDatabases endpoint
+    b. add endpoint put data into mongo (post request)
+    - post = insert
+    - put = update
+    - get = select
+    - delete = delete
