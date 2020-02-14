@@ -36,7 +36,7 @@ mongodb.MongoClient.connect(uri, function(err, client) {
    * new database, it is created automatically when we insert.
    */
 
-  let db = client.db('dbname')
+  let db = client.db('heroku_2b5jhzp9')
 
   /*
    * First we'll add a few songs. Nothing is required to create the
