@@ -5,7 +5,7 @@ async function main(){
 try {
     await client.connect();
 
-    // await listDatabases(client);
+    await listDatabases(client);
     await createListing(client,
         {
            user: "New sample",
@@ -22,12 +22,12 @@ finally {
 }
 main().catch(console.error);
 
-// async function listDatabases(client){
-//     databasesList = await client.db().admin().listDatabases();
+async function listDatabases(client){
+    databasesList = await client.db().admin().listDatabases();
  
-//     console.log("Databases:");
-//     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-// };
+    console.log("Databases:");
+    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+};
 
 async function createListing(client, newListing){
     const result = await client.db("heroku_55584xz8").collection("logindata").insertOne(newListing);
