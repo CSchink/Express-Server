@@ -5,7 +5,7 @@ async function main(){
 try {
     await client.connect();
 
-    // await listDatabases(client);
+    await listDatabases(client);
     await createListing(client,
         {
            user: "New sample",
