@@ -1,5 +1,5 @@
 async function main(){
-    const uri="mongodb+srv://dbCorey:MVDhmYhNQkp2y8T@cluster0-ymebw.mongodb.net/sottlab?retryWrites=true&w=majority"
+    const uri="mongodb://heroku_2b5jhzp9:dkvqkv4dj1t54ph0hokb86o9us@ds119171.mlab.com:19171/heroku_2b5jhzp9"
     const {MongoClient} = require('mongodb');
     const client = new MongoClient(uri);
 try {
@@ -30,6 +30,6 @@ main().catch(console.error);
 // };
 
 async function createListing(client, newListing){
-    const result = await client.db("sottlab").collection("logindata").insertOne(newListing);
+    const result = await client.db("heroku_55584xz8").collection("logindata").insertOne(newListing);
     console.log(`New listing created with the following id: ${result.insertedId}`);
 }
