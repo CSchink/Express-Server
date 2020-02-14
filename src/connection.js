@@ -80,14 +80,12 @@ mongodb.MongoClient.connect(uri, function(err, client) {
           });
 
           // Since this is an example, we'll clean up after ourselves.
-          songs.drop(function (err) {
-            if(err) throw err;
+          
 
             // Only close the connection when your app is terminating.
             client.close(function (err) {
               if(err) throw err;
             });
-          });
         });
       }
     );
