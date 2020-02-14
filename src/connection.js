@@ -6,7 +6,13 @@ try {
     await client.connect();
 
     await listDatabases(client);
- 
+    await createListing(client,
+        {
+           user: "New sample",
+           password:"J54fn"
+        }
+    );
+
 } catch (e) {
     console.error(e);
 }
@@ -22,3 +28,8 @@ async function listDatabases(client){
     console.log("Databases:");
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 };
+
+async function createListing(client, newListing){
+    const result = await client.db("sottlab").collection("logindata").insertOne(newListing);
+    console.log(`New listing created with the following id: ${result.insertedId}`);
+}
