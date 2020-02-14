@@ -13,7 +13,7 @@ async function main(){
    
         await createListing(client,
             {
-               name: "New sample"
+               Entry: "New sample"
             }
         );
   
@@ -25,6 +25,6 @@ async function main(){
 main().catch(console.error);
 
 async function createListing(client, newListing){
-    const result = await client.db("sample").collection("sottlab").insertOne(newListing);
+    const result = await client.db("sottlab").collection("test").insertOne(newListing);
     console.log(`New listing created with the following id: ${result.insertedId}`);
 }
