@@ -15,6 +15,12 @@ app.get('/listDatabases', async function(req, res){
 // setup another get route for listings
 // need a new database function to return listings that takes in a client
 
+app.get('/listEntries', async function(req, res){
+    let client = await connection.connect();
+    let entries = await connection.listEntries(client);
+    res.json(entries)
+})
+
 app.listen(process.env.PORT || 3000, function(){
     console.log('Example app is now listening on port 3000')
 })
