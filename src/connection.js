@@ -40,7 +40,7 @@ async function listDatabases(client){
 async function listEntries(client){
     entriesList = await client.db('sottlab').collection('historylab').listEntries();
 
-    return entriesList.Entry
+    return entriesList.find().pretty();
 }
 
 async function createListing(client, newListing){
