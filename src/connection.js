@@ -38,8 +38,8 @@ async function listDatabases(client){
 };
 
 async function listEntries(client){
-    result = await client.db('sottlab').collection('logindata').find({});
-    return result;
+    const cursor = await client.db('sottlab').collection('logindata').find({}).sort();
+    return results = await cursor.toArray();
 }
 
 async function createListing(client, newListing){
