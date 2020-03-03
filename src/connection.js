@@ -39,11 +39,7 @@ async function listDatabases(client){
 
 async function listEntries(client){
     result = await client.db('sottlab').collection('logindata').find({});
-    if (result){
-        res.json(result)
-    } else {
-        console.log("No entries")
-    }
+    return result;
 }
 
 async function createListing(client, newListing){
