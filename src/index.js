@@ -27,7 +27,7 @@ app.get('/deleteEntries', async function(req, res){
     res.json(update);
 })
 
-app.get('/createEntries', async function(req, res){
+app.post('/createEntries', async function(req, res){
     let client = await connection.connect();
     let newEntry = await connection.createEntries(client, {
         user: "John",
