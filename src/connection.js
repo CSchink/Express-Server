@@ -43,8 +43,8 @@ async function listEntries(client){
 }
 
 async function deleteEntries(client, userName){
-    result = await client.db("sottlab").collection("logindata").deleteOne({ user: userName})
-    return result;
+    result = await client.db("sottlab").collection("logindata").deleteOne({ user: userName })
+    console.log(`${result.deletedCount} document(s) were deleted.`)
 }
 
 async function createListing(client, newListing){
