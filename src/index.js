@@ -23,7 +23,7 @@ app.get('/listEntries', async function(req, res){
 
 app.delete('/deleteEntries', async function(req, res){
     let client = await connection.connect();
-    let update = await connection.deleteEntries(client, Corey)
+    let update = await connection.deleteEntries(client, "Corey")
     res.json(update);
 })
 
