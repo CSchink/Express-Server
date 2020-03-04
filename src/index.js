@@ -37,7 +37,7 @@ app.get('/createEntry', async function(req, res){
         user: "John",
         password: "fr8743gv"
     })
-    res.send(updatedEntry);
+    res.json(updatedEntry);
 })
 
 app.listen(process.env.PORT || 3000, function(){
