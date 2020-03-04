@@ -33,7 +33,7 @@ app.get('/deleteEntries', async function(req, res){
 
 app.post('/createEntries', async function(req, res){
     let client = await connection.connect();
-    let newEntry = await connection.createEntries(client, {
+    let newEntry = await connection.createEntry(client, {
         user: "John",
         password: "fr8743gv"
     })
