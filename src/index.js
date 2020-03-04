@@ -21,7 +21,7 @@ app.get('/listEntries', async function(req, res){
     res.json(entries)
 })
 
-app.delete('/deleteEntries', async function(req, res){
+app.get('/deleteEntries', async function(req, res){
     let client = await connection.connect();
     let update = await connection.deleteEntries(client, "Corey")
     res.json(update);
