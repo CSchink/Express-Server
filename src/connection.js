@@ -47,9 +47,9 @@ async function deleteEntries(client, userName){
     console.log(`${result.deletedCount} document(s) were deleted.`)
 }
 
-async function createListing(client, newListing){
-    const result = await client.db("heroku_55584xz8").collection("logindata").insertOne(newListing);
+async function createEntry(client, newEntry){
+    const result = await client.db("sottlab").collection("logindata").insertOne(newEntry);
     console.log(`New listing created with the following id: ${result.insertedId}`);
 }
 
-module.exports = { listDatabases, connect, listEntries, deleteEntries }
+module.exports = { listDatabases, connect, listEntries, deleteEntries, createEntry }

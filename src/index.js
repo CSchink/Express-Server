@@ -27,6 +27,15 @@ app.get('/deleteEntries', async function(req, res){
     res.json(update);
 })
 
+app.get('/createEntries', async function(req, res){
+    let client = await connection.connect();
+    let newEntry = await connection.createEntries(client, {
+        user: "John",
+        password: "fr8743gv"
+    })
+    res.json(newEntry);
+})
+
 app.listen(process.env.PORT || 3000, function(){
     console.log('Example app is now listening on port 3000')
 })
