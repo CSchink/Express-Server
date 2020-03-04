@@ -31,13 +31,13 @@ app.get('/deleteEntries', async function(req, res){
     res.json(update);
 })
 
-app.post('/createEntries', async function(req, res){
+app.post('/createEntry', async function(req, res){
     let client = await connection.connect();
-    let newEntry = await connection.createEntry(client, {
+    let updatedEntry = await connection.createEntry(client, {
         user: "John",
         password: "fr8743gv"
     })
-    res.json(newEntry);
+    res.send(updatedEntry);
 })
 
 app.listen(process.env.PORT || 3000, function(){
