@@ -21,6 +21,12 @@ app.get('/listEntries', async function(req, res){
     res.json(entries)
 })
 
+app.delete('/deleteEntries', async function(req, res){
+    let client = await connection.connect();
+    let update = await connection.deleteEntries(client, Corey)
+    res.json(update);
+})
+
 app.listen(process.env.PORT || 3000, function(){
     console.log('Example app is now listening on port 3000')
 })

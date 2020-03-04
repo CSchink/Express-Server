@@ -42,9 +42,13 @@ async function listEntries(client){
     return results = await cursor.toArray();
 }
 
+async function deleteEntries(client, userName){
+    result = await client.db("sottlab").collection("logindata").deleteOne({ user: userName})
+}
+
 async function createListing(client, newListing){
     const result = await client.db("heroku_55584xz8").collection("logindata").insertOne(newListing);
     console.log(`New listing created with the following id: ${result.insertedId}`);
 }
 
-module.exports = { listDatabases, connect, listEntries }
+module.exports = { listDatabases, connect, listEntries, deleteEntries }
