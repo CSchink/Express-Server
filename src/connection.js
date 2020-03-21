@@ -49,7 +49,8 @@ async function deleteEntries(client, userName){
 
 async function createEntry(client, newEntry){
     const result = await client.db("sottlab").collection("logindata").insertOne(newEntry);
-    console.log(`New listing created with the following id: ${result.insertedId}`);
+    console.log(`New entry created with the following id: ${result.insertedId}`);
+    return true;
 }
 
 module.exports = { listDatabases, connect, listEntries, deleteEntries, createEntry }
