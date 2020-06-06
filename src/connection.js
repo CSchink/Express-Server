@@ -41,6 +41,19 @@ async function listEntries(client){
     const cursor = await client.db('sottlab').collection('historylab').find({}).limit(10);
     return results = await cursor.toArray();
 }
+async function userCheck(client, username, password){
+    const cursor = await client.db('sottlab').collection('logindata').find({}).limit(10);
+    let results = await cursor.toArray();
+    let confirmation = results.some(function(result) {
+        console.log(result)
+        if(result.user===username && result.password === password){
+            return true
+        } else {
+            return false
+        }
+    });
+    return confirmation;
+}
 
 async function deleteEntries(client, userName){
     result = await client.db("sottlab").collection("logindata").deleteOne({ user: userName })
@@ -53,4 +66,12 @@ async function createEntry(client, newEntry){
     return true;
 }
 
-module.exports = { listDatabases, connect, listEntries, deleteEntries, createEntry }
+async function userConfirm(){
+    
+    let userData = axios.get('http://localhost:3000/userCheck')
+    let results = userData.filter(x => {return x.user})
+    return results;
+}
+
+
+module.exports = { userCheck, userConfirm, listDatabases, connect, listEntries, deleteEntries, createEntry }
