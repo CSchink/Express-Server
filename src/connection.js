@@ -38,7 +38,7 @@ async function listDatabases(client){
 };
 
 async function listEntries(client){
-    const cursor = await client.db('sottlab').collection('historylab').find({}).limit(10);
+    const cursor = await client.db('sottlab').collection('historylab').find({}).limit(50);
     return results = await cursor.toArray();
 }
 async function userCheck(client, username, password){
