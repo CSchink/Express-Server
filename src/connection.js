@@ -73,10 +73,10 @@ async function userConfirm(){
     return results;
 }
 
-async function editData(client, data){
-    let result = await client.db("sottlab").collection("historylab").find({"Entry": data})
-    let data = await result.toArray();
-    return data;
+async function editData(client, result){
+    let editData = await client.db("sottlab").collection("historylab").find({"Entry": result})
+    let editResult = await editData.toArray();
+    return editResult;
 }
 
 module.exports = { userCheck, userConfirm, listDatabases, connect, listEntries, deleteEntries, createEntry, editData }
