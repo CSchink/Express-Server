@@ -73,8 +73,8 @@ async function userConfirm(){
     return results;
 }
 
-async function editData(client, entry){
-    let result = await client.db("sottlab").collection("historylab").find({"Entry": entry})
+async function editData(client, data){
+    let result = await client.db("sottlab").collection("historylab").find({"Entry": data})
     let data = await result.toArray();
     return data;
 }
