@@ -74,7 +74,7 @@ async function userConfirm(){
 }
 
 async function editData(client, entry){
-    let result = await client.db("sottlab").collection("historylab").find({"Entry": props})
+    let result = await client.db("sottlab").collection("historylab").find({"Entry": entry})
     let data = await result.toArray();
     return data;
 }
