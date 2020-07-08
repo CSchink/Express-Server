@@ -73,5 +73,10 @@ async function userConfirm(){
     return results;
 }
 
+async function editData(client, entry){
+    let result = await client.db("sottlab").collection("historylab").find({"Entry": props})
+    let data = await result.toArray();
+    return data;
+}
 
-module.exports = { userCheck, userConfirm, listDatabases, connect, listEntries, deleteEntries, createEntry }
+module.exports = { userCheck, userConfirm, listDatabases, connect, listEntries, deleteEntries, createEntry, editData }

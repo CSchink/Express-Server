@@ -101,6 +101,12 @@ app.get('/createEntry', async function(req, res){
     res.json(updatedEntry);
 })
 
+app.get('/findOne', async function(req, res){
+    let client = await connection.connect();
+    let findOne = await connection.editData(client)
+    res.json(findOne);
+})
+
 app.listen(process.env.PORT || 3000, function(){
     console.log('Example app is now listening on port 3000')
 })
