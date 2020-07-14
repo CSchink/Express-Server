@@ -38,7 +38,7 @@ async function listDatabases(client){
 };
 
 async function listEntries(client){
-    const cursor = await client.db('sottlab').collection('historylab').find({});
+    const cursor = await client.db('sottlab').collection('historylab1').find({});
     return results = await cursor.toArray();
 }
 async function userCheck(client, username, password){
@@ -74,7 +74,7 @@ async function userConfirm(){
 }
 
 async function editData(client, result){
-    let editData = await client.db("sottlab").collection("historylab").find({"Entry": result})
+    let editData = await client.db('sottlab').collection('historylab').find({'Entry': result})
     let editResult = await editData.toArray();
     return editResult;
 }
