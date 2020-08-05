@@ -25,7 +25,7 @@ async function main(){
 
 main().catch(console.error);
 
-async function createListing(client, newListing){
-    const result = await client.db("sottlab").collection("logindata").insertOne(newListing);
+async function createListing(client, req){
+    const result = await client.db("sottlab").collection("historylab1").insertOne(newListing);
     console.log(`New listing created with the following id: ${result.insertedId}`);
 }

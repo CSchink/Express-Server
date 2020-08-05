@@ -96,7 +96,8 @@ app.get("/deleteEntries", async function (req, res) {
 
 app.post("/createEntry", async function (req, res) {
   let client = await connection.connect();
-  await client.db("sottlab").collection("historylab1").insertOne(req.body);
+  let newEntry = await connection.createEntry(client, req.body)
+  res.json(newEntry)
 //   .then(result =>{
 //       console.log(result)
 //   })
