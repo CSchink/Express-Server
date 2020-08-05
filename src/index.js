@@ -95,8 +95,17 @@ app.get('/deleteEntries', async function(req, res){
 app.get('/createEntry', async function(req, res){
     let client = await connection.connect();
     let updatedEntry = await connection.createEntry(client, {
-        user: "John",
-        password: "fr8743gv"
+        date: req.body.date,
+        entry: req.body.entry,
+        century: req.body.century,
+        category: req.body.category,
+        originating: req.body.origin,
+        target: req.body.target,
+        cultural: req.body.ctags,
+        ponerology: req.body.ptags,
+        tags: req.body.tags,
+        source: req.body.source,
+        page: req.body.page
     })
     res.json(updatedEntry);
 })

@@ -41,8 +41,10 @@ async function listEntries(client){
     const cursor = await client.db('sottlab').collection('historylab1').find({});
     return results = await cursor.toArray();
 }
+
+
 async function userCheck(client, username, password){
-    const cursor = await client.db('sottlab').collection('logindata').find({}).limit(10);
+    const cursor = await client.db('sottlab').collection('logindata').find({ 'fieldname1' : { $exists: true, $ne: null } }).limit(10);
     let results = await cursor.toArray();
     let confirmation = results.some(function(result) {
         console.log(result)
