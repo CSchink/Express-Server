@@ -94,9 +94,9 @@ app.get("/deleteEntries", async function (req, res) {
   res.json(update);
 });
 
-app.get("/createEntry", async function (req, res) {
+app.post("/createEntry", async function (req, res) {
   let client = await connection.connect();
-  let updatedEntry = await connection.createEntry(client, {
+  let newEntry = await connection.createEntry(client, {
     Date: req.body.date,
     Entry: req.body.entry,
     Century: req.body.century,
@@ -109,7 +109,7 @@ app.get("/createEntry", async function (req, res) {
     Source: req.body.source,
     Page: req.body.page,
   });
-  res.json(updatedEntry);
+  res.json(newEntry);
 });
 
 app.get("/findOne", async function (req, res) {
