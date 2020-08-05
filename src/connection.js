@@ -1,5 +1,8 @@
 async function connect(){
-    const uri="mongodb+srv://dbCorey:MVDhmYhNQkp2y8T@cluster0-ymebw.mongodb.net/sottlab?retryWrites=true&w=majority"
+    const uri="mongodb://dbCorey:MVDhmYhNQkp2y8T@cluster0-shard-00-00-ymebw.mongodb.net:27017,cluster0-shard-00-01-ymebw.mongodb.net:27017,cluster0-shard-00-02-ymebw.mongodb.net:27017/sottlab?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority"
+    // "mongodb+srv://dbCorey:MVDhmYhNQkp2y8T@cluster0-ymebw.mongodb.net/sottlab?retryWrites=true&w=majority"
+    
+
     const {MongoClient} = require('mongodb');
     const client = new MongoClient(uri);
     return await client.connect();
