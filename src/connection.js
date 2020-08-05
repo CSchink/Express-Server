@@ -63,7 +63,7 @@ async function deleteEntries(client, userName){
 }
 
 async function createEntry(client, newEntry){
-    const result = await client.db("sottlab").collection("logindata").insertOne(newEntry);
+    const result = await client.db("sottlab").collection("historylab1").insertOne(newEntry);
     console.log(`New entry created with the following id: ${result.insertedId}`);
     return true;
 }
