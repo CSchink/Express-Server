@@ -96,18 +96,19 @@ app.get("/deleteEntries", async function (req, res) {
 
 app.post("/createEntry", async function (req, res) {
   let client = await connection.connect();
+  console.log(req.body)
   let newEntry = await connection.createEntry(client, {
-    Date: date,
-    Entry: entry,
-    Century: century,
-    Category: category,
-    Originating: origin,
-    Target: target,
-    Cultural: [ctags],
-    ptags: [ptags],
-    htags: [tags],
-    Source: source,
-    Page: page,
+    Date: req.body.date,
+    Entry: req.body.entry,
+    Century: req.body.century,
+    Category: req.body.category,
+    Originating: req.body.origin,
+    Target: req.body.target,
+    Cultural: [req.body.ctags],
+    ptags: [req.body.ptags],
+    htags: [req.body.tags],
+    Source: req.body.source,
+    Page: req.body.page,
   });
   res.json(newEntry);
 });
