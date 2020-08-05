@@ -1,122 +1,123 @@
-const connection = require('./connection.js')
-const express = require('express');
+const connection = require("./connection.js");
+const express = require("express");
 const app = express();
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
-const secretKey = "Johnny Be Good"
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const jwt = require("jsonwebtoken");
+const secretKey = "Johnny Be Good";
 
-app.use(cors())
+app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Express Router:
 // const router = express.Router();
 // router.get()
 // app.use(router);
 
-app.post('/login', async function(req, res, next){
-    console.log(req.body)
-    let client = await connection.connect();
-    let confirmation = await connection.userCheck(client, req.body.username, req.body.password );
-    // res.sendStatus(200)
-    if(confirmation){
-      const token = jwt.sign("Hello world", secretKey);
-      console.log(token);
-      res.json(token);
-    } else {
-        res.sendStatus(400)
-    }
-    
-})
+app.post("/login", async function (req, res, next) {
+  console.log(req.body);
+  let client = await connection.connect();
+  let confirmation = await connection.userCheck(
+    client,
+    req.body.username,
+    req.body.password
+  );
+  // res.sendStatus(200)
+  if (confirmation) {
+    const token = jwt.sign("Hello world", secretKey);
+    console.log(token);
+    res.json(token);
+  } else {
+    res.sendStatus(400);
+  }
+});
 
 app.use((req, res, next) => {
-    console.log("middleware");
-    // verify token
-    let token = req.headers.authorization;
-    console.log(token);
+  console.log("middleware");
+  // verify token
+  let token = req.headers.authorization;
+  console.log(token);
 
-    try {
-        let verify =  jwt.verify(token, secretKey);
+  try {
+    let verify = jwt.verify(token, secretKey);
 
-        console.log(verify);
+    console.log(verify);
 
-        // if verifying token succeeds continue
-           next()
-       
-    } catch (error) {
-        console.log(error);
-        res.sendStatus(401);
+    // if verifying token succeeds continue
+    next();
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(401);
 
-        // res.status(500).json("We caught this error");
-    }
+    // res.status(500).json("We caught this error");
+  }
 
-    // if verifying token throws error, return 401
+  // if verifying token throws error, return 401
 
-    // if (req.headers.authorization) {
+  // if (req.headers.authorization) {
 
-    // }
+  // }
 
-    // console.log(req.path);
+  // console.log(req.path);
 
-    // if (req.path === "/") {
-    //     next();
-    // } else {
-    //     //401: Unauthorized
-    //     res.sendStatus(401);
-    // }
+  // if (req.path === "/") {
+  //     next();
+  // } else {
+  //     //401: Unauthorized
+  //     res.sendStatus(401);
+  // }
 
-    // next();
-})
+  // next();
+});
 
-app.get('/',function(req, res){
-    console.log("route handler")
-    res.send('Hello John!!');
-})
+app.get("/", function (req, res) {
+  console.log("route handler");
+  res.send("Hello John!!");
+});
 
-app.get('/listDatabases', async function(req, res){
-    let client = await connection.connect();
-    let databases = await connection.listDatabases(client);
-    res.json(databases)
-})
+app.get("/listDatabases", async function (req, res) {
+  let client = await connection.connect();
+  let databases = await connection.listDatabases(client);
+  res.json(databases);
+});
 
-app.get('/listEntries', async function(req, res){
-    let client = await connection.connect();
-    let entries = await connection.listEntries(client);
-    res.json(entries)
-})
+app.get("/listEntries", async function (req, res) {
+  let client = await connection.connect();
+  let entries = await connection.listEntries(client);
+  res.json(entries);
+});
 
-app.get('/deleteEntries', async function(req, res){
-    let client = await connection.connect();
-    let update = await connection.deleteEntries(client, "John")
-    res.json(update);
-})
+app.get("/deleteEntries", async function (req, res) {
+  let client = await connection.connect();
+  let update = await connection.deleteEntries(client, "John");
+  res.json(update);
+});
 
-app.get('/createEntry', async function(req, res){
-    let client = await connection.connect();
-    let updatedEntry = await connection.createEntry(client, {
-        date: req.body.date,
-        entry: req.body.entry,
-        century: req.body.century,
-        category: req.body.category,
-        originating: req.body.origin,
-        target: req.body.target,
-        cultural: req.body.ctags,
-        ponerology: req.body.ptags,
-        tags: req.body.tags,
-        source: req.body.source,
-        page: req.body.page
-    })
-    res.json(updatedEntry);
-})
+app.get("/createEntry", async function (req, res) {
+  let client = await connection.connect();
+  let updatedEntry = await connection.createEntry(client, {
+    Date: req.body.date,
+    Entry: req.body.entry,
+    Century: req.body.century,
+    Category: req.body.category,
+    Originating: req.body.origin,
+    Target: req.body.target,
+    Cultural: req.body.ctags,
+    ptags: req.body.ptags,
+    htags: req.body.tags,
+    Source: req.body.source,
+    Page: req.body.page,
+  });
+  res.json(updatedEntry);
+});
 
-app.get('/findOne', async function(req, res){
-    let client = await connection.connect();
-    let findOne = await connection.editData(client)
-    res.json(findOne);
-})
+app.get("/findOne", async function (req, res) {
+  let client = await connection.connect();
+  let findOne = await connection.editData(client);
+  res.json(findOne);
+});
 
-app.listen(process.env.PORT || 3000, function(){
-    console.log('Example app is now listening on port 3000')
-})
-
+app.listen(process.env.PORT || 3000, function () {
+  console.log("Example app is now listening on port 3000");
+});
