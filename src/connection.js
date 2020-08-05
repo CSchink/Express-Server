@@ -44,7 +44,7 @@ async function listEntries(client){
 
 
 async function userCheck(client, username, password){
-    const cursor = await client.db('sottlab').collection('logindata').find({ 'fieldname1' : { $exists: true, $ne: null } }).limit(10);
+    const cursor = await client.db('sottlab').collection('logindata').find({}).limit(10);
     let results = await cursor.toArray();
     let confirmation = results.some(function(result) {
         console.log(result)
@@ -63,9 +63,9 @@ async function deleteEntries(client, userName){
 }
 
 async function createEntry(client, newEntry){
-
-    const result = await client.db("sottlab").collection("historylab1").insertOne(newEntry);
+    const result = await client.db("sottlab").collection("logindata").insertOne(newEntry);
     console.log(`New entry created with the following id: ${result.insertedId}`);
+    return true;
 }
 
 async function userConfirm(){
