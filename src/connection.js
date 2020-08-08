@@ -40,7 +40,7 @@ async function listDatabases(client){
 };
 
 async function listEntries(client){
-    const cursor = await client.db('sottlab').collection('historylab1').find({});
+    const cursor = await client.db('sottlab').collection('historylab').find({});
     return results = await cursor.toArray();
 }
 
@@ -65,7 +65,7 @@ async function deleteEntries(client, userName){
 }
 
 async function createEntry(client, newEntry){
-    const result = await client.db("sottlab").collection("historylab1").insertOne(newEntry);
+    const result = await client.db("sottlab").collection("historylab").insertOne(newEntry);
     console.log(`New entry created with the following id: ${result.insertedId}`);
     return result
 }
