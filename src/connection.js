@@ -41,7 +41,9 @@ async function listDatabases(client){
 
 async function listEntries(client){
     const cursor = await client.db('sottlab').collection('historylab').find({});
-    return results = await cursor.toArray();
+    results = await cursor.toArray();
+    console.log(results.filter((r)=> r.Entry === "Hello World"));
+    return results;
 }
 
 
