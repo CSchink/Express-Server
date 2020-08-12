@@ -88,6 +88,12 @@ app.get("/listEntries", async function (req, res) {
   res.json(entries);
 });
 
+app.get("/listScienceEntries", async function (req, res) {
+  let client = await connection.connect();
+  let entries = await connection.listScienceEntries(client);
+  res.json(entries);
+});
+
 app.get("/deleteEntries", async function (req, res) {
   let client = await connection.connect();
   let update = await connection.deleteEntries(client, "John");
@@ -117,6 +123,12 @@ app.post("/createEntry", async function (req, res) {
 //   });
 //   res.json(newEntry);
 });
+
+app.post("/createScienceEntry", async function(req, res) {
+  let client = await connection.connect();
+  let newEntry = await connection.createScienceEntry(client, req.body)
+  res.json(newEntry);
+})
 
 app.get("/findOne", async function (req, res) {
   let client = await connection.connect();

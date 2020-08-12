@@ -71,6 +71,12 @@ async function createEntry(client, newEntry){
     return result
 }
 
+async function createScienceEntry(client, newEntry){
+    const result = await client.db("sottlab").collection("sciencelab").insertOne(newEntry);
+    console.log(`New entry created with the following id: ${result.insertedId}`);
+    return result
+}
+
 async function userConfirm(){
     
     let userData = axios.get('http://localhost:3000/userCheck')
@@ -84,4 +90,10 @@ async function editData(client, result){
     return editResult;
 }
 
-module.exports = { userCheck, userConfirm, listDatabases, connect, listEntries, deleteEntries, createEntry, editData }
+async function listScienceEntries(client){
+    const cursor = await client.db('sottlab').collection('sciencelab').find({});
+    let results = await cursor.toArray();
+    return results;
+}
+
+module.exports = { listScienceEntries, userCheck, createScienceEntry, userConfirm, listDatabases, connect, listEntries, deleteEntries, createEntry, editData }
