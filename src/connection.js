@@ -38,11 +38,9 @@ async function listDatabases(client) {
 }
 
 async function listEntries(client) {
-  const cursor = await client.db("sottlab").collection("historylab1").find({});
+  const cursor = await client.db("sottlab").collection("historylab").find({});
   let results = await cursor.toArray();
-  //
   results.forEach((result) => {
-    //
     Object.keys(result).forEach((key) => {
       if (typeof result[key] === "string") {
         result[key] = result[key].trim();
