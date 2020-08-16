@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(router);
 
 app.post("/login", async function (req, res, next) {
-  console.log(req.body);
+
   let client = await connection.connect();
   let confirmation = await connection.userCheck(
     client,
@@ -133,7 +133,7 @@ app.post("/createScienceEntry", async function(req, res) {
 app.post("/editData", async function (req, res) {
   let client = await connection.connect();
   let findOne = await connection.editData(client, req.body);
-  res.json(findOne);
+  return findOne
 });
 
 app.listen(process.env.PORT || 3000, function () {

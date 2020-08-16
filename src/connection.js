@@ -112,29 +112,27 @@ async function userConfirm() {
 async function editData(client, entry) {
   console.log(entry);
   const ObjectID = require('mongodb').ObjectID;
-  let id = new ObjectID(entry.body._id);
-  let editData = await client
+  await client
     .db("sottlab")
     .collection("historylab1")
     .updateOne(
-      { _id: id },
+      { _id: new ObjectID(entry._id) },
       {
         $set: {
-          Date: entry.body.Date,
-          Entry: entry.body.Entry,
-          Century: entry.body.Century,
-          Category: entry.body.Category,
-          Origin: entry.body.Origin,
-          Target: entry.body.Target,
-          Cultural: [entry.body.Cultural],
-          ptags: [entry.body.ptags],
-          htags: [entry.body.htags],
-          Source: entry.body.Source,
-          Page: entry.body.Page,
+          Date: entry.Date,
+          Entry: entry.Entry,
+          Century: entry.Century,
+          Category: entry.Category,
+          Origin: entry.Origin,
+          Target: entry.Target,
+          Cultural: [entry.Cultural],
+          ptags: [entry.ptags],
+          htags: [entry.htags],
+          Source: entry.Source,
+          Page: entry.Page,
         },
       }
     );
-  return editData;
 }
 
 async function listScienceEntries(client) {
