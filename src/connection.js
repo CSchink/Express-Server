@@ -116,7 +116,7 @@ async function editData(client, entry) {
   let editData = await client
     .db("sottlab")
     .collection("historylab1")
-    .replaceOne(
+    .updateOne(
       { _id: id },
       {
         $set: {
