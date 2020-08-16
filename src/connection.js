@@ -6,7 +6,6 @@ async function connect() {
   const client = new MongoClient(uri);
   return await client.connect();
 }
-
 // async function main(){
 //     const uri="mongodb+srv://dbCorey:MVDhmYhNQkp2y8T@cluster0-ymebw.mongodb.net/sottlab?retryWrites=true&w=majority"
 //     const {MongoClient} = require('mongodb');
@@ -112,7 +111,8 @@ async function userConfirm() {
 
 async function editData(client, entry) {
   console.log(entry);
-  let id = entry._id;
+  const ObjectID = require('mongodb').ObjectID;
+  let id = new ObjectID(entry._id);
   let editData = await client
     .db("sottlab")
     .collection("historylab1")
