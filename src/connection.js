@@ -41,7 +41,9 @@ async function listDatabases(client) {
 async function listEntries(client) {
   const cursor = await client.db("sottlab").collection("historylab1").find({});
   let results = await cursor.toArray();
+  //
   results.forEach((result) => {
+    //
     Object.keys(result).forEach((key) => {
       if (typeof result[key] === "string") {
         result[key] = result[key].trim();
@@ -108,13 +110,13 @@ async function userConfirm() {
   return results;
 }
 
-async function editData(client, result) {
+async function editData(client, entry) {
+  let id = entry._Id;
   let editData = await client
     .db("sottlab")
-    .collection("historylab")
-    .find({ Entry: result });
-  let editResult = await editData.toArray();
-  return editResult;
+    .collection("historylab1")
+    .updateOne({ _Id: id });
+  return editData
 }
 
 async function listScienceEntries(client) {
