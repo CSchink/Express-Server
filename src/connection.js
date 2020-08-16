@@ -111,25 +111,30 @@ async function userConfirm() {
 }
 
 async function editData(client, entry) {
-    console.log(entry)
+  console.log(entry);
   let id = entry._id;
   let editData = await client
     .db("sottlab")
     .collection("historylab1")
-    .updateOne({ "_id": id }, {
-        "Date": entry.Date,
-        "Entry": entry.Entry,
-        "Century": entry.Century,
-        "Category": entry.Category,
-        "Origin": entry.Origin,
-        "Target": entry.Target,
-        "Cultural": entry.Cultural,
-        "ptags": entry.ptags,
-        "htags": entry.htags,
-        "Source": entry.Source,
-        "Page": entry.Page
-    });
-  return editData
+    .replaceOne(
+      { _id: id },
+      {
+        $set: {
+          Date: entry.date,
+          Entry: entry.Entry,
+          Century: entry.Century,
+          Category: entry.Category,
+          Origin: entry.Origin,
+          Target: entry.Target,
+          Cultural: entry.Cultural,
+          ptags: entry.ptags,
+          htags: entry.htags,
+          Source: entry.Source,
+          Page: entry.Page,
+        },
+      }
+    );
+  return editData;
 }
 
 async function listScienceEntries(client) {
