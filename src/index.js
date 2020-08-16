@@ -36,6 +36,8 @@ app.post("/login", async function (req, res, next) {
 app.use((req, res, next) => {
   console.log("middleware");
   // verify token
+  res.header('Access-Control-Allow-Origin', '*');
+  
   let token = req.headers.authorization;
   console.log(token);
 
@@ -130,10 +132,11 @@ app.post("/createScienceEntry", async function(req, res) {
   res.json(newEntry);
 })
 
-app.post("/editData", async function (req, res) {
+app.put("/editData", async function (req, res) {
   let client = await connection.connect();
   let findOne = await connection.editData(client, req.body);
-  return findOne
+
+  res.json(findOne)
 });
 
 app.listen(process.env.PORT || 3000, function () {
