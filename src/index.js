@@ -130,7 +130,7 @@ app.post("/createScienceEntry", async function(req, res) {
   res.json(newEntry);
 })
 
-app.get("/editData", async function (req, res) {
+app.post("/editData", async function (req, res) {
   let client = await connection.connect();
   let findOne = await connection.editData(client, req.body);
   res.json(findOne);
