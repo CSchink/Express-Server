@@ -127,7 +127,7 @@ async function editData(client, entry) {
   }
   await client
     .db("sottlab")
-    .collection("historylab1")
+    .collection("historylab2")
     .replaceOne(query, update);
 }
 
