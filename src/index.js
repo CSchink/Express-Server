@@ -19,6 +19,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // router.get()
 // app.use(router);
 
+
+
 app.post("/login", async function (req, res, next) {
 
   let client = await connection.connect();
@@ -37,11 +39,7 @@ app.post("/login", async function (req, res, next) {
   }
 });
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+
 
 app.use((req, res, next) => {
   console.log("middleware");
@@ -81,6 +79,12 @@ app.use((req, res, next) => {
   // }
 
   // next();
+});
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
 
 app.get("/", function (req, res) {
@@ -143,6 +147,7 @@ app.post("/createScienceEntry", async function(req, res) {
 })
 
 app.put("/editData", async function (req, res) {
+  console.log(req.body)
   let client = await connection.connect();
   let findOne = await connection.editData(client, req.body);
 

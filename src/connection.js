@@ -110,21 +110,21 @@ async function userConfirm() {
 async function editData(client, entry) {
   console.log(entry);
   const ObjectID = require('mongodb').ObjectID;
-  let query = {_id: new ObjectID(entry._id)}
+  let query = {"_id": new ObjectID(entry._id)}
   
   let update = {
     $set: {
-      Date: entry.Date,
-      Entry: entry.Entry,
-      Century: entry.Century,
-      Category: entry.Category,
-      Origin: entry.Origin,
-      Target: entry.Target,
-      Cultural: [entry.Cultural],
-      ptags: [entry.ptags],
-      htags: [entry.htags],
-      Source: entry.Source,
-      Page: entry.Page,
+      "Date": entry.Date,
+      "Entry": entry.Entry,
+      "Century": entry.Century,
+      "Category": entry.Category,
+      "Origin": entry.Origin,
+      "Target": entry.Target,
+      "Cultural": [entry.Cultural],
+      "ptags": [entry.ptags],
+      "htags": [entry.htags],
+      "Source": entry.Source,
+      "Page": entry.Page,
     },
   }
   await client
