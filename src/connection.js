@@ -110,7 +110,7 @@ async function userConfirm() {
 async function editData(client, entry) {
   console.log(entry);
   const ObjectID = require('mongodb').ObjectID;
-  let query = {"_id": new ObjectID(entry._id)}
+  let query = {_id: new ObjectID(entry._id)}
   
   let update = {
       Date: entry.Date,
