@@ -6,14 +6,11 @@ const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const secretKey = "Johnny Be Good";
 
-var corsOptions = {
-  origin: '*',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
-}
-app.use(cors(corsOptions));
+
+app.use(cors);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.set("port", PORT)
 // Express Router:
 // const router = express.Router();
 // router.get()
