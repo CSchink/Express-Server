@@ -99,33 +99,33 @@ async function createScienceEntry(client, newEntry) {
   return result;
 }
 
-async function userConfirm() {
-  let userData = axios.get("http://localhost:3000/userCheck");
-  let results = userData.filter((x) => {
-    return x.user;
-  });
-  return results;
+async function newUser(client, user) {
+  const result = await client
+    .db("sottlab")
+    .collection("logindata")
+    .insertOne(user);
+  return result;
 }
 
 async function editData(client, entry) {
   console.log(entry);
-  const ObjectID = require('mongodb').ObjectID;
-  let id = new ObjectID(entry._id)
-  let query = {_id: id}
-  
+  const ObjectID = require("mongodb").ObjectID;
+  let id = new ObjectID(entry._id);
+  let query = { _id: id };
+
   let update = {
-      Date: entry.Date,
-      Entry: entry.Entry,
-      Century: entry.Century,
-      Category: entry.Category,
-      Origin: entry.Origin,
-      Target: entry.Target,
-      Cultural: entry.Cultural,
-      ptags: entry.ptags,
-      htags: entry.htags,
-      Source: entry.Source,
-      Page: entry.Page,
-  }
+    Date: entry.Date,
+    Entry: entry.Entry,
+    Century: entry.Century,
+    Category: entry.Category,
+    Origin: entry.Origin,
+    Target: entry.Target,
+    Cultural: entry.Cultural,
+    ptags: entry.ptags,
+    htags: entry.htags,
+    Source: entry.Source,
+    Page: entry.Page,
+  };
   await client
     .db("sottlab")
     .collection("historylab2")
@@ -142,7 +142,7 @@ module.exports = {
   listScienceEntries,
   userCheck,
   createScienceEntry,
-  userConfirm,
+  newUser,
   listDatabases,
   connect,
   listEntries,

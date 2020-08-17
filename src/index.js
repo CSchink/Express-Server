@@ -154,6 +154,12 @@ app.put("/editData", async function (req, res) {
   res.json(findOne)
 });
 
+app.post("/signup", async function(req, res) {
+  let client = await connection.connect();
+  let newUser = await connection.newUser(client, req.body)
+  res.json(newUser)
+})
+
 app.listen(process.env.PORT || 3000, function () {
   console.log("Example app is now listening on port 3000");
 });
