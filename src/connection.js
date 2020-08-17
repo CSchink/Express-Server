@@ -38,7 +38,7 @@ async function listDatabases(client) {
 }
 
 async function listEntries(client) {
-  const cursor = await client.db("sottlab").collection("historylab1").find({});
+  const cursor = await client.db("sottlab").collection("historylab2").find({});
   let results = await cursor.toArray();
   results.forEach((result) => {
     Object.keys(result).forEach((key) => {
@@ -84,7 +84,7 @@ async function deleteEntries(client, userName) {
 async function createEntry(client, newEntry) {
   const result = await client
     .db("sottlab")
-    .collection("historylab1")
+    .collection("historylab2")
     .insertOne(newEntry);
   console.log(`New entry created with the following id: ${result.insertedId}`);
   return result;
