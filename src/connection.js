@@ -130,7 +130,7 @@ async function editData(client, entry) {
   await client
     .db("sottlab")
     .collection("historylab1")
-    .updateOne(query, update);
+    .replaceOne(query, update);
 }
 
 async function listScienceEntries(client) {
