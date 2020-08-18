@@ -8,7 +8,7 @@ const secretKey = "Johnny Be Good";
 
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Express Router:
@@ -138,6 +138,14 @@ app.post("/createScienceEntry", async function(req, res) {
 })
 
 app.put("/editData", async function (req, res) {
+  console.log(req.body)
+  let client = await connection.connect();
+  let findOne = await connection.editData(client, req.body);
+
+  res.json(findOne)
+});
+
+app.put("/editScienceData", async function (req, res) {
   console.log(req.body)
   let client = await connection.connect();
   let findOne = await connection.editData(client, req.body);

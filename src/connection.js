@@ -132,6 +132,27 @@ async function editData(client, entry) {
     .replaceOne(query, update);
 }
 
+async function editScienceData(client, entry) {
+  console.log(entry);
+  const ObjectID = require("mongodb").ObjectID;
+  let id = new ObjectID(entry._id);
+  let query = { _id: id };
+
+  let update = {
+    Date: entry.Date,
+    Entry: entry.Entry,
+    Field: entry.Field,
+    Subfields: entry.Subfields,
+    Tags: entry.Tags,
+    Source: entry.Source,
+    Page: entry.Page,
+  };
+  await client
+    .db("sottlab")
+    .collection("sciencelab")
+    .replaceOne(query, update);
+}
+
 async function listScienceEntries(client) {
   const cursor = await client.db("sottlab").collection("sciencelab").find({});
   let results = await cursor.toArray();
@@ -141,6 +162,7 @@ async function listScienceEntries(client) {
 module.exports = {
   listScienceEntries,
   userCheck,
+  editScienceData,
   createScienceEntry,
   newUser,
   listDatabases,
