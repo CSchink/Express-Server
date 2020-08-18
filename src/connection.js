@@ -118,7 +118,7 @@ async function editData(client, entry) {
     Entry: entry.Entry,
     Century: entry.Century,
     Category: entry.Category,
-    Origin: entry.Origin,
+    Originating: entry.Origin,
     Target: entry.Target,
     Cultural: entry.Cultural,
     ptags: entry.ptags,
