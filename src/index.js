@@ -5,7 +5,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const secretKey = "Johnny Be Good";
-
+const admin = require('firebase-admin')
 
 app.use(cors());
 app.use(express.json());
@@ -162,3 +162,8 @@ app.post("/signup", async function(req, res) {
 app.listen(process.env.PORT || 3000, function () {
   console.log("Example app is now listening on port 3000");
 });
+
+app.get("/getaccount", async function (req, res){
+  let data = connection.getAccount(req.body)
+  res.json(data)
+})

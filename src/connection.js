@@ -73,6 +73,19 @@ async function userCheck(client, username, password) {
   return confirmation;
 }
 
+async function getAccount(client, username){  
+  const cursor = await client
+    .db("sottlab")
+    .collection("logindata")
+    .find({user: username})
+    .limit(10);
+ return cursor;
+  // return {
+  //       user: "John",
+  //       image: "http://wallpaperose.com/wp-content/uploads/2014/02/Lighthouse-Shining-over-Rough-Seas.jpg"
+  //   }
+}
+
 async function deleteEntries(client, userName) {
   result = await client
     .db("sottlab")
@@ -160,6 +173,7 @@ async function listScienceEntries(client) {
 }
 
 module.exports = {
+  getAccount,
   listScienceEntries,
   userCheck,
   editScienceData,
