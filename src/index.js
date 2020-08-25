@@ -5,7 +5,6 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const secretKey = "Johnny Be Good";
-const admin = require('firebase-admin')
 
 app.use(cors());
 app.use(express.json());
