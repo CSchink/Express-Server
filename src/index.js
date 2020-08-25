@@ -35,6 +35,10 @@ app.post("/login", async function (req, res, next) {
   }
 });
 
+app.get("/getaccount", async function (req, res){
+  let data = connection.getAccount(req.body)
+  res.json(data)
+})
 
 
 app.use((req, res, next) => {
@@ -162,7 +166,3 @@ app.listen(process.env.PORT || 3000, function () {
   console.log("Example app is now listening on port 3000");
 });
 
-app.get("/getaccount", async function (req, res){
-  let data = connection.getAccount(req.body)
-  res.json(data)
-})
