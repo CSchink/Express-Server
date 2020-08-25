@@ -73,11 +73,11 @@ async function userCheck(client, username, password) {
   return confirmation;
 }
 
-async function getAccount(client, username){  
+async function getAccount(client, user){  
   const cursor = await client
     .db("sottlab")
     .collection("logindata")
-    .find({user: username})
+    .find({user: user})
     .limit(10);
  return cursor;
   // return {

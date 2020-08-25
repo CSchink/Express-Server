@@ -36,7 +36,8 @@ app.post("/login", async function (req, res, next) {
 });
 
 app.get("/getaccount", async function (req, res){
-  let data = connection.getAccount(req.body)
+  let client = await connection.connect();
+  let data = connection.getAccount(client, req.body)
   res.json(data)
 })
 
