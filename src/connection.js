@@ -77,9 +77,9 @@ async function getAccount(client, entry){
   const cursor = await client
     .db("sottlab")
     .collection("logindata")
-    .findOne({user: entry.user, password: entry.password})
-   
- return cursor;
+    .find({user: entry.user, password: entry.password})
+   let results = await cursor.toArray();
+ return results;
   // return {
   //       user: "John",
   //       image: "http://wallpaperose.com/wp-content/uploads/2014/02/Lighthouse-Shining-over-Rough-Seas.jpg"
