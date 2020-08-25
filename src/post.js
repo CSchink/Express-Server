@@ -7,17 +7,20 @@ async function main(){
     const client = new MongoClient(uri);
 
     try {
-        
-        await client.connect();
-
-   
-        await createListing(client,
+        const pipeline = [
             {
-               user: "New sample",
-               password:"J54fn"
+                '$match': {
+                    'operationType': 'insert',
+                }
             }
-        );
-  
+        ];
+
+
+       
+        await monitorHistoryLabInserts(client, 30000, pipeline);
+
+     
+
     } finally {
         await client.close();
     }
@@ -25,7 +28,23 @@ async function main(){
 
 main().catch(console.error);
 
-async function createListing(client, req){
-    const result = await client.db("sottlab").collection("historylab1").insertOne(newListing);
-    console.log(`New listing created with the following id: ${result.insertedId}`);
+function closeChangeStream(timeInMs = 60000, changeStream) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            console.log("Closing the change stream");
+            changeStream.close();
+            resolve();
+        }, timeInMs)
+    })
+};
+
+async function monitorHistoryLabInserts(client, timeInMs = 60000, pipeline = []) {
+    const collection = client.db("sottlab").collection("historylab2");
+
+    const changeStream = collection.watch(pipeline);
+    changeStream.on('change', (next) => {
+        return next;
+    });
+
+    await closeChangeStream(timeInMs, changeStream);
 }
