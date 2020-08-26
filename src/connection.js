@@ -73,11 +73,10 @@ async function userCheck(client, username, password) {
 }
 
 async function getAccount(client, entry) {
-  const cursor = await client
+  const results = await client
     .db("sottlab")
     .collection("logindata")
-    .findOne({}, { user: entry.user, password: entry.password });
-  let results = await cursor.toArray();
+    .findOne({ user: entry.user, password: entry.password });
   return results;
   // return {
   //       user: "John",
