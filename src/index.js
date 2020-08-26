@@ -38,9 +38,10 @@ app.post("/login", async function (req, res, next) {
 
 app.get("/getaccount", async function (req, res){
   let client = await connection.connect();
-  let data = connection.getAccount(client, req.params)
-  console.log(req.params)
+  let data = connection.getAccount(client, req.body)
+  console.log(req)
   res.json(data)
+  console.log(data)
 })
 
 
