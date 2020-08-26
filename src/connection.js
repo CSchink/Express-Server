@@ -63,7 +63,6 @@ async function userCheck(client, username, password) {
     .limit(10);
   let results = await cursor.toArray();
   let confirmation = results.some(function (result) {
-    console.log(result);
     if (result.user === username && result.password === password) {
       return true;
     } else {
@@ -73,13 +72,13 @@ async function userCheck(client, username, password) {
   return confirmation;
 }
 
-async function getAccount(client, entry){  
+async function getAccount(client, entry) {
   const cursor = await client
     .db("sottlab")
     .collection("logindata")
-    .find({user: entry.user, password: entry.password})
-   let results = await cursor.toArray();
- return results;
+    .findOne({}, { user: entry.user, password: entry.password });
+  let results = await cursor.toArray();
+  return results;
   // return {
   //       user: "John",
   //       image: "http://wallpaperose.com/wp-content/uploads/2014/02/Lighthouse-Shining-over-Rough-Seas.jpg"
@@ -160,10 +159,7 @@ async function editScienceData(client, entry) {
     Source: entry.Source,
     Page: entry.Page,
   };
-  await client
-    .db("sottlab")
-    .collection("sciencelab")
-    .replaceOne(query, update);
+  await client.db("sottlab").collection("sciencelab").replaceOne(query, update);
 }
 
 async function listScienceEntries(client) {
