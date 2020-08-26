@@ -36,13 +36,7 @@ app.post("/login", async function (req, res, next) {
 
 });
 
-app.post("/getaccount", async function (req, res){
-  let client = await connection.connect();
-  let data = await connection.getAccount(client, req.body)
-  console.log(req.body)
-  res.json(data)
-  console.log(data)
-})
+
 
 
 app.use((req, res, next) => {
@@ -84,6 +78,14 @@ app.use((req, res, next) => {
 
   // next();
 });
+
+app.post("/getaccount", async function (req, res){
+  let client = await connection.connect();
+  let data = await connection.getAccount(client, req.body)
+  console.log(req.body)
+  res.json(data)
+  console.log(data)
+})
 
 app.get("/", function (req, res) {
   console.log("route handler");
