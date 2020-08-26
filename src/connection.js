@@ -76,7 +76,7 @@ async function getAccount(client, entry) {
   const results = await client
     .db("sottlab")
     .collection("logindata")
-    .findOne({ user: entry.user, password: entry.password });
+    .findOne({ });
   return results;
   // return {
   //       user: "John",
