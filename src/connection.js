@@ -6,14 +6,7 @@ async function connect() {
   const client = new MongoClient(uri);
   return await client.connect();
 }
-var Pusher = require("pusher");
-const pusher = new Pusher({
-  appId: "1063466",
-  key: "e01d32568ef94bcc8f8f",
-  secret: "2e55a4e860c2e4314946",
-  cluster: "us2",
-  encrypted: true,
-});
+
 
 
 
@@ -42,25 +35,7 @@ const pusher = new Pusher({
 // }
 // main().catch(console.error);
 
-async function historyLabNotifications() {
-  const channel = "historylab";
-  const collection = client.db("sottlab").collection("historylab2");
-  const changeStream = collection.watch();
-  const getNotifications = changeStream.on("change", (change) => {
-    console.log(change);
 
-    if (change.operationType === "insert") {
-      const entry = change.fullDocument;
-      pusher.trigger(channel, "historyinsert", {
-        id: entry._id,
-        entry: entry.entry,
-      });
-    } else if (change.operationType === "delete") {
-      pusher.trigger(channel, "deleted", change.documentKey._id);
-    }
-  });
-  return getNotifications;
-}
 
 async function listDatabases(client) {
   databasesList = await client.db().admin().listDatabases();
