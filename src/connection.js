@@ -15,7 +15,7 @@ const pusher = new Pusher({
   encrypted: true,
 });
 
-const channel = "historylab";
+
 
 // async function main(){
 //     const uri="mongodb+srv://dbCorey:MVDhmYhNQkp2y8T@cluster0-ymebw.mongodb.net/sottlab?retryWrites=true&w=majority"
@@ -43,9 +43,10 @@ const channel = "historylab";
 // main().catch(console.error);
 
 async function historyLabNotifications() {
+  const channel = "historylab";
   const collection = client.db("sottlab").collection("historylab2");
   const changeStream = collection.watch();
-  const getNotifications = await changeStream.on("change", (change) => {
+  const getNotifications = changeStream.on("change", (change) => {
     console.log(change);
 
     if (change.operationType === "insert") {
