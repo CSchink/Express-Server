@@ -6,7 +6,7 @@ async function connect() {
   const client = new MongoClient(uri);
   return await client.connect();
 }
-
+var Pusher = require("pusher");
 const pusher = new Pusher({
   appId: "1063466",
   key: "e01d32568ef94bcc8f8f",
