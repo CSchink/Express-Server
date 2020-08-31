@@ -126,8 +126,7 @@ app.get("/deleteEntries", async function (req, res) {
 app.post("/createEntry", async function (req, res) {
   let client = await connection.connect();
   let newEntry = await connection.createEntry(client, payload); 
-  const payload = req.body 
-  pusher.trigger('historylab', 'historyinsert', payload);
+  pusher.trigger('historylab', 'historyinsert', newEntry);
   res.JSON(newEntry);
   //   .then(result =>{
   //       console.log(result)
