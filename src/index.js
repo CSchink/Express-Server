@@ -78,13 +78,7 @@ app.use((req, res, next) => {
   // next();
 });
 
-var pusher = new Pusher({
-  appId: "1063466",
-  key: "e01d32568ef94bcc8f8f",
-  secret: "2e55a4e860c2e4314946",
-  cluster: "us2",
-  encrypted: true,
-});
+
 
 app.post("/getaccount", async function (req, res) {
   let client = await connection.connect();
@@ -125,8 +119,7 @@ app.get("/deleteEntries", async function (req, res) {
 
 app.post("/createEntry", async function (req, res) {
   let client = await connection.connect();
-  let newEntry = await connection.createEntry(client, payload); 
-  pusher.trigger('historylab', 'historyinsert', newEntry);
+  let newEntry = await connection.createEntry(client, req.body); 
   res.JSON(newEntry);
   //   .then(result =>{
   //       console.log(result)
