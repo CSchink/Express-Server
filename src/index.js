@@ -5,6 +5,15 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const secretKey = "Johnny Be Good";
+var Pusher = require("pusher");
+
+var pusher = new Pusher({
+  appId: "1063466",
+  key: "e01d32568ef94bcc8f8f",
+  secret: "2e55a4e860c2e4314946",
+  cluster: "us2",
+  encrypted: true,
+});
 
 app.use(cors());
 app.use(express.json());
@@ -15,10 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // router.get()
 // app.use(router);
 
-
-
 app.post("/login", async function (req, res, next) {
-
   let client = await connection.connect();
   let confirmation = await connection.userCheck(
     client,
@@ -33,17 +39,12 @@ app.post("/login", async function (req, res, next) {
   } else {
     res.sendStatus(400);
   }
-
 });
-
-
-
 
 app.use((req, res, next) => {
   console.log("middleware");
   // verify token
 
-  
   let token = req.headers.authorization;
   console.log(token);
 
@@ -79,13 +80,13 @@ app.use((req, res, next) => {
   // next();
 });
 
-app.post("/getaccount", async function (req, res){
+app.post("/getaccount", async function (req, res) {
   let client = await connection.connect();
-  let data = await connection.getAccount(client, req.body)
-  console.log(req.body)
-  res.json(data)
-  console.log(data)
-})
+  let data = await connection.getAccount(client, req.body);
+  console.log(req.body);
+  res.json(data);
+  console.log(data);
+});
 
 app.get("/", function (req, res) {
   console.log("route handler");
@@ -118,57 +119,59 @@ app.get("/deleteEntries", async function (req, res) {
 
 app.post("/createEntry", async function (req, res) {
   let client = await connection.connect();
-  let newEntry = await connection.createEntry(client, req.body)
-  res.json(newEntry)
-//   .then(result =>{
-//       console.log(result)
-//   })
-//   console.log(req.body)
-//   let newEntry = await connection.createEntry(client, {
-//     Date: req.body.date,
-//     Entry: req.body.entry,
-//     Century: req.body.century,
-//     Category: req.body.category,
-//     Originating: req.body.origin,
-//     Target: req.body.target,
-//     Cultural: [req.body.ctags],
-//     ptags: [req.body.ptags],
-//     htags: [req.body.tags],
-//     Source: req.body.source,
-//     Page: req.body.page,
-//   });
-//   res.json(newEntry);
+  const payload = req.body
+  let newEntry = await connection.createEntry(client, req.body);
+  pusher.trigger('historylab', 'historyentry', payload);
+  res.send(payload)
+  res.json(newEntry);
+  //   .then(result =>{
+  //       console.log(result)
+  //   })
+  //   console.log(req.body)
+  //   let newEntry = await connection.createEntry(client, {
+  //     Date: req.body.date,
+  //     Entry: req.body.entry,
+  //     Century: req.body.century,
+  //     Category: req.body.category,
+  //     Originating: req.body.origin,
+  //     Target: req.body.target,
+  //     Cultural: [req.body.ctags],
+  //     ptags: [req.body.ptags],
+  //     htags: [req.body.tags],
+  //     Source: req.body.source,
+  //     Page: req.body.page,
+  //   });
+  //   res.json(newEntry);
 });
 
-app.post("/createScienceEntry", async function(req, res) {
+app.post("/createScienceEntry", async function (req, res) {
   let client = await connection.connect();
-  let newEntry = await connection.createScienceEntry(client, req.body)
+  let newEntry = await connection.createScienceEntry(client, req.body);
   res.json(newEntry);
-})
+});
 
 app.put("/editData", async function (req, res) {
-  console.log(req.body)
+  console.log(req.body);
   let client = await connection.connect();
   let findOne = await connection.editData(client, req.body);
 
-  res.json(findOne)
+  res.json(findOne);
 });
 
 app.put("/editScienceData", async function (req, res) {
-  console.log(req.body)
+  console.log(req.body);
   let client = await connection.connect();
   let findOne = await connection.editScienceData(client, req.body);
 
-  res.json(findOne)
+  res.json(findOne);
 });
 
-app.post("/signup", async function(req, res) {
+app.post("/signup", async function (req, res) {
   let client = await connection.connect();
-  let newUser = await connection.newUser(client, req.body)
-  res.json(newUser)
-})
+  let newUser = await connection.newUser(client, req.body);
+  res.json(newUser);
+});
 
 app.listen(process.env.PORT || 3000, function () {
   console.log("Example app is now listening on port 3000");
 });
-

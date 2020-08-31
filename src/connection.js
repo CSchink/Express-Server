@@ -1,3 +1,16 @@
+var Pusher = require("pusher");
+const collection = client.db("sottlab").collection("historylab2");
+const changeStream = collection.watch();
+var pusher = new Pusher({
+  appId: "1063466",
+  key: "e01d32568ef94bcc8f8f",
+  secret: "2e55a4e860c2e4314946",
+  cluster: "us2",
+  encrypted: true,
+});
+
+var channel = pusher.subscribe("historylab");
+
 async function connect() {
   const uri =
     "mongodb+srv://dbCorey:MVDhmYhNQkp2y8T@cluster0-ymebw.mongodb.net/sottlab?retryWrites=true&w=majority";
@@ -6,6 +19,20 @@ async function connect() {
   const client = new MongoClient(uri);
   return await client.connect();
 }
+
+changeStream.on("change", (change) => {
+  console.log(change);
+
+  if (change.operationType === "insert") {
+    const entry = change.fullDocument;
+    pusher.trigger(channel, "historyinsert", {
+      id: entry._id,
+      entry: entry.entry,
+    });
+  } else if (change.operationType === "delete") {
+    pusher.trigger(channel, "deleted", change.documentKey._id);
+  }
+});
 // async function main(){
 //     const uri="mongodb+srv://dbCorey:MVDhmYhNQkp2y8T@cluster0-ymebw.mongodb.net/sottlab?retryWrites=true&w=majority"
 //     const {MongoClient} = require('mongodb');
@@ -73,12 +100,12 @@ async function userCheck(client, username, password) {
 }
 
 async function getAccount(client, entry) {
-  const query = { user: entry.user, password: entry.password }
+  const query = { user: entry.user, password: entry.password };
   const results = await client
     .db("sottlab")
     .collection("logindata")
     .findOne(query);
-    console.log(results)
+  console.log(results);
   return results;
   // return {
   //       user: "John",
