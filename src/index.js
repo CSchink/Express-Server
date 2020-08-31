@@ -5,7 +5,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const secretKey = "Johnny Be Good";
-var Pusher = require("pusher");
+
 
 
 
@@ -123,10 +123,7 @@ app.get("/deleteEntries", async function (req, res) {
 
 app.post("/createEntry", async function (req, res) {
   let client = await connection.connect();
-  const payload = req.body
-  let newEntry = await connection.createEntry(client, req.body);
-  pusher.trigger('historylab', 'historyentry', payload);
- 
+  let newEntry = await connection.createEntry(client, req.body);  
   res.json(newEntry);
   //   .then(result =>{
   //       console.log(result)
