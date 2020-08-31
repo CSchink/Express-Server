@@ -5,13 +5,20 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const secretKey = "Johnny Be Good";
-var Pusher = require("pusher");
 
+var Pusher = require("pusher");
 
 
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+const pusher = new Pusher({
+  appId: "1063466",
+  key: "e01d32568ef94bcc8f8f",
+  secret: "2e55a4e860c2e4314946",
+  cluster: "us2",
+  encrypted: true,
+});
 
 
 
@@ -171,4 +178,8 @@ app.post("/signup", async function (req, res) {
 
 app.listen(process.env.PORT || 3000, function () {
   console.log("Example app is now listening on port 3000");
+});
+
+pusher.trigger('historylab', "historyinsert", {
+  'message': 'hello world'
 });
