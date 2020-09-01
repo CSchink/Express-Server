@@ -174,6 +174,3 @@ app.listen(process.env.PORT || 3000, function () {
   console.log("Example app is now listening on port 3000");
 });
 
-pusher.trigger('historylab', "historyinsert", {
-  'message': 'hello world'
-});
