@@ -6,7 +6,14 @@ async function connect() {
   const client = new MongoClient(uri);
   return await client.connect();
 }
-
+var Pusher = require("pusher");
+const pusher = new Pusher({
+  appId: "1063466",
+  key: "e01d32568ef94bcc8f8f",
+  secret: "2e55a4e860c2e4314946",
+  cluster: "us2",
+  encrypted: true,
+});
 
 
 
@@ -101,6 +108,9 @@ async function deleteEntries(client, userName) {
 }
 
 async function createEntry(client, newEntry) {
+  pusher.trigger('historylab', "historyinsert", {
+    'message': 'hello world'
+  });
   const result = await client
     .db("sottlab")
     .collection("historylab2")
