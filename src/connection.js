@@ -188,5 +188,4 @@ module.exports = {
   deleteEntries,
   createEntry,
   editData,
-  historyLabNotifications,
 };

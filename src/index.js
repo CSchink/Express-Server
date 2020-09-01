@@ -158,8 +158,7 @@ app.put("/editData", async function (req, res) {
   console.log(req.body);
   let client = await connection.connect();
   let findOne = await connection.editData(client, req.body);
-
-  res.json(findOne);
+  res.json(findOne)
 });
 
 app.put("/editScienceData", async function (req, res) {
