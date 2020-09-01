@@ -20,8 +20,10 @@ const pusher = new Pusher({
   encrypted: true,
 });
 
-
-
+var socketId = null;
+pusher.connection.bind('connected', function() {
+  socketId = pusher.connection.socket_id;
+});
 // Express Router:
 // const router = express.Router();
 // router.get()
@@ -126,10 +128,11 @@ app.get("/deleteEntries", async function (req, res) {
 
 app.post("/createEntry", async function (req, res) {
   const data = req.body
+  var socketId = req.body.socket_id;
   let client = await connection.connect();
   let newEntry = await connection.createEntry(client, req.body); 
   res.JSON(newEntry).then((entry) => {
-    pusher.trigger(`historylab`, 'historyinsert', data);
+    pusher.trigger(`historylab`, 'historyinsert', data, socketId);
     return res.json(data);
 });
   //   .then(result =>{
