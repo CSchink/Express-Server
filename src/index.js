@@ -127,7 +127,7 @@ app.get("/deleteEntries", async function (req, res) {
 app.post("/createEntry", async function (req, res) {
   let client = await connection.connect();
   let newEntry = await connection.createEntry(client, req.body); 
-  res.JSON(newEntry)
+  res.json(newEntry)
   //   .then(result =>{
   //       console.log(result)
   //   })
