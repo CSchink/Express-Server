@@ -131,7 +131,7 @@ app.post("/createEntry", async function (req, res) {
   var socketId = req.body.socket_id;
   let client = await connection.connect();
   let newEntry = await connection.createEntry(client, req.body); 
-  res.JSON(newEntry).then((entry) => {
+  res.JSON(newEntry).then(() => {
     pusher.trigger(`historylab`, 'historyinsert', data, socketId);
     return res.json(data);
 });
