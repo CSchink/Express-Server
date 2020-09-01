@@ -21,9 +21,7 @@ const pusher = new Pusher({
 });
 
 var socketId = null;
-pusher.connection.bind('connected', function() {
-  socketId = pusher.connection.socket_id;
-});
+
 // Express Router:
 // const router = express.Router();
 // router.get()
@@ -132,6 +130,9 @@ app.post("/createEntry", async function (req, res) {
   let client = await connection.connect();
   let newEntry = await connection.createEntry(client, req.body); 
   res.JSON(newEntry).then(() => {
+    pusher.connection.bind('connected', function() {
+      socketId = pusher.connection.socket_id;
+    });
     pusher.trigger(`historylab`, 'historyinsert', data, socketId);
     return res.json(data);
 });
