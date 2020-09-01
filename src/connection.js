@@ -113,11 +113,11 @@ async function createEntry(client, newEntry) {
     .db("sottlab")
     .collection("historylab2")
     .insertOne(newEntry);
-  console.log(`New entry created with the following id: ${result.insertedId}`);
-  let notification = await pusher.trigger('my-channel', 'my-event', {
+  console.log(`New entry created with the following id: ${result.insertedId}`)
+  await pusher.trigger('my-channel', 'my-event', {
     'message': newEntry.Entry
   });
-  return notification;
+  return result;
 }
 
 async function createScienceEntry(client, newEntry) {
