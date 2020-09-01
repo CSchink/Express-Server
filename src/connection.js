@@ -1,3 +1,5 @@
+var Pusher = require('pusher');
+
 async function connect() {
   const uri =
     "mongodb+srv://dbCorey:MVDhmYhNQkp2y8T@cluster0-ymebw.mongodb.net/sottlab?retryWrites=true&w=majority";
@@ -9,7 +11,13 @@ async function connect() {
 
 const { response } = require("express");
 
-
+const pusher = new Pusher({
+  appId: "1063466",
+  key: "e01d32568ef94bcc8f8f",
+  secret: "2e55a4e860c2e4314946",
+  cluster: "us2",
+  encrypted: true,
+});
 
 
 // async function main(){
@@ -103,6 +111,9 @@ async function deleteEntries(client, userName) {
 }
 
 async function createEntry(client, newEntry) {
+  pusher.trigger('my-channel', 'my-event', {
+    'message': 'hello world'
+  });
   const result = await client
     .db("sottlab")
     .collection("historylab2")
