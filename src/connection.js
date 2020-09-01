@@ -109,7 +109,7 @@ async function deleteEntries(client, userName) {
 
 async function createEntry(client, newEntry) {
   pusher.trigger('historylab', "historyinsert", {
-    'message': 'hello world'
+    'message': newEntry.Entry
   });
   const result = await client
     .db("sottlab")
