@@ -111,8 +111,8 @@ async function deleteEntries(client, userName) {
 }
 
 async function createEntry(client, newEntry) {
-  pusher.trigger('my-channel', 'my-event', {
-    'message': 'hello world'
+  pusher.trigger('historylab', 'historyinsert', {
+    'message': newEntry.Entry
   });
   const result = await client
     .db("sottlab")
