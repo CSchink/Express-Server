@@ -5,7 +5,6 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const secretKey = "Johnny Be Good";
-var Pusher = require("pusher");
 
 
 
@@ -90,6 +89,12 @@ app.post("/getaccount", async function (req, res) {
   console.log(data);
 });
 
+app.post("/articleentry", async function (req, res){
+  let client = await connection.connect()
+  let data = await connection.createOutline(client, req.body)
+  res.json(data)
+})
+
 app.get("/", function (req, res) {
   console.log("route handler");
   res.send("Hello John!!");
@@ -149,8 +154,15 @@ app.post("/createScienceEntry", async function (req, res) {
   res.json(newEntry);
 });
 
-app.put("/editData", async function (req, res) {
+app.post("/listOutlines", async function (req, res) {
   console.log(req.body);
+  let client = await connection.connect();
+  let getOutlines = await connection.listOutlines(client, req.body);
+  res.json(getOutlines)
+});
+
+app.post("/editData", async function (req, res) {
+
   let client = await connection.connect();
   let findOne = await connection.editData(client, req.body);
   res.json(findOne)
@@ -168,6 +180,18 @@ app.post("/signup", async function (req, res) {
   let client = await connection.connect();
   let newUser = await connection.newUser(client, req.body);
   res.json(newUser);
+});
+
+app.post("/newnotifications", async function (req, res) {
+  let client = await connection.connect();
+  let newUser = await connection.newUser(client, req.body);
+  res.json(newUser);
+});
+
+app.post("/getnotifications", async function (req, res) {
+  let client = await connection.connect();
+  let getnotifications = await connection.getNotifications(client, req.body);
+  res.json(getnotifications);
 });
 
 app.listen(process.env.PORT || 3000, function () {

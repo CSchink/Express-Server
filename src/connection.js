@@ -1,4 +1,11 @@
-var Pusher = require('pusher');
+var Pusher = require("pusher");
+const pusher = new Pusher({
+  appId: "1063466",
+  key: "e01d32568ef94bcc8f8f",
+  secret: "2e55a4e860c2e4314946",
+  cluster: "us2",
+  encrypted: true,
+});
 
 async function connect() {
   const uri =
@@ -10,15 +17,6 @@ async function connect() {
 }
 
 const { response } = require("express");
-
-const pusher = new Pusher({
-  appId: "1063466",
-  key: "e01d32568ef94bcc8f8f",
-  secret: "2e55a4e860c2e4314946",
-  cluster: "us2",
-  encrypted: true,
-});
-
 
 // async function main(){
 //     const uri="mongodb+srv://dbCorey:MVDhmYhNQkp2y8T@cluster0-ymebw.mongodb.net/sottlab?retryWrites=true&w=majority"
@@ -44,8 +42,6 @@ const pusher = new Pusher({
 // }
 // }
 // main().catch(console.error);
-
-
 
 async function listDatabases(client) {
   databasesList = await client.db().admin().listDatabases();
@@ -111,15 +107,45 @@ async function deleteEntries(client, userName) {
 }
 
 async function createEntry(client, newEntry) {
-  pusher.trigger('historylab', 'historyinsert', {
-    'message': newEntry.Entry
+  pusher.trigger("historylab", "historyinsert", {
+    message: newEntry.Entry,
   });
   const result = await client
     .db("sottlab")
     .collection("historylab2")
     .insertOne(newEntry);
-  console.log(`New entry created with the following id: ${result.insertedId}`)
+  console.log(`New entry created with the following id: ${result.insertedId}`);
   return result;
+}
+
+async function createOutline(client, newEntry) {
+  const result = await client
+    .db("sottlab")
+    .collection("articles")
+    .insertOne(newEntry);
+  console.log(`New entry created with the following id: ${result.insertedId}`);
+  return result;
+}
+
+async function listOutlines(client, entry) {
+  const cursor = await client
+    .db("sottlab")
+    .collection("articles")
+    .find({ user: entry.user });
+  let results = await cursor.toArray();
+  results.forEach((result) => {
+    Object.keys(result).forEach((key) => {
+      if (typeof result[key] === "string") {
+        result[key] = result[key].trim();
+      } else if (Array.isArray(result[key])) {
+        result[key] = result[key]
+          .filter((value) => value != null)
+          .map((value) => value.trim());
+      }
+    });
+  });
+
+  return results;
 }
 
 async function createScienceEntry(client, newEntry) {
@@ -188,8 +214,30 @@ async function listScienceEntries(client) {
   return results;
 }
 
+async function newNotifications(client) {
+  const result = await client
+    .db("sottlab")
+    .collection("notifications")
+    .insertOne(newEntry);
+  console.log(`New entry created with the following id: ${result.insertedId}`);
+  return result;
+}
+
+async function getNotifications(client, entry) {
+  let query = { user: {$ne: entry.user } };
+  const results = await client
+    .db("sottlab")
+    .collection("notifications")
+    .find(query);
+  console.log(results);
+  return results;
+}
+
 module.exports = {
+  newNotifications,
+  getNotifications,
   getAccount,
+  createOutline,
   listScienceEntries,
   userCheck,
   editScienceData,
@@ -201,4 +249,5 @@ module.exports = {
   deleteEntries,
   createEntry,
   editData,
+  listOutlines,
 };
