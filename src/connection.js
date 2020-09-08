@@ -214,11 +214,11 @@ async function listScienceEntries(client) {
   return results;
 }
 
-async function newNotifications(client) {
+async function newNotifications(client, entry) {
   const result = await client
     .db("sottlab")
     .collection("notifications")
-    .insertOne(newEntry);
+    .insertOne(entry);
   console.log(`New entry created with the following id: ${result.insertedId}`);
   return result;
 }

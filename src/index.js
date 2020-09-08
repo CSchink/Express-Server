@@ -184,7 +184,7 @@ app.post("/signup", async function (req, res) {
 
 app.post("/newnotifications", async function (req, res) {
   let client = await connection.connect();
-  let newUser = await connection.newUser(client, req.body);
+  let newUser = await connection.newNotifications(client, req.body);
   res.json(newUser);
 });
 
