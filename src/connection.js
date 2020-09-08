@@ -226,18 +226,19 @@ async function newNotifications(client, entry) {
 async function getNotifications(client, entry) {
   console.log(entry.User)
   let query = {
-    User: { $ne: entry },
+    User: { $ne: entry.User },
     // Date: {
     //   $lt: new Date(),
     //   $gte: new Date(new Date().setDate(new Date().getDate() - 7)),
     // },
   };
-  const results = await client
+  const cursor = await client
     .db("sottlab")
     .collection("notifications")
     .find(query);
-  console.log(results);
-  return results;
+  // console.log(results);
+  let results = await cursor.toArray();
+  return results
 }
 
 module.exports = {
