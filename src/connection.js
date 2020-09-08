@@ -224,7 +224,7 @@ async function newNotifications(client, entry) {
 }
 
 async function getNotifications(client, entry) {
-  console.log(entry)
+  console.log(entry.User)
   let query = {
     User: { $ne: entry },
     // Date: {
