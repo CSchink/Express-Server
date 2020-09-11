@@ -72,7 +72,6 @@ async function userCheck(client, username, password) {
     .db("sottlab")
     .collection("logindata")
     .find({})
-    .limit(10);
   let results = await cursor.toArray();
   let confirmation = results.some(function (result) {
     if (result.user === username && result.password === password) {
