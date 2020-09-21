@@ -132,20 +132,11 @@ async function listOutlines(client, entry) {
     .collection("articles")
     .find({ user: entry.user });
   let results = await cursor.toArray();
-  results.forEach((result) => {
-    Object.keys(result).forEach((key) => {
-      if (typeof result[key] === "string") {
-        result[key] = result[key].trim();
-      } else if (Array.isArray(result[key])) {
-        result[key] = result[key]
-          .filter((value) => value != null)
-          .map((value) => value.trim());
-      }
-    });
-  });
-
   return results;
-}
+  };
+
+  
+
 
 async function createScienceEntry(client, newEntry) {
   const result = await client
