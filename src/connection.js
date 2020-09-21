@@ -130,6 +130,7 @@ async function listOutlines(client, entry) {
     .find({ user: entry.user });
   let results = await cursor.toArray();
   console.log(results)
+  console.log(entry)
   return results;
 }
 
