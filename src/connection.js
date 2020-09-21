@@ -68,10 +68,7 @@ async function listEntries(client) {
 }
 
 async function userCheck(client, username, password) {
-  const cursor = await client
-    .db("sottlab")
-    .collection("logindata")
-    .find({})
+  const cursor = await client.db("sottlab").collection("logindata").find({});
   let results = await cursor.toArray();
   let confirmation = results.some(function (result) {
     if (result.user === username && result.password === password) {
@@ -132,11 +129,9 @@ async function listOutlines(client, entry) {
     .collection("articles")
     .find({ user: entry.user });
   let results = await cursor.toArray();
+  console.log(results)
   return results;
-  };
-
-  
-
+}
 
 async function createScienceEntry(client, newEntry) {
   const result = await client
@@ -214,7 +209,7 @@ async function newNotifications(client, entry) {
 }
 
 async function getNotifications(client, entry) {
-  console.log(entry.User)
+  console.log(entry.User);
   let query = {
     User: { $ne: entry.User },
     // Date: {
@@ -228,7 +223,7 @@ async function getNotifications(client, entry) {
     .find(query);
   // console.log(results);
   let results = await cursor.toArray();
-  return results
+  return results;
 }
 
 module.exports = {
