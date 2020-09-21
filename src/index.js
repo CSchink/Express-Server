@@ -95,6 +95,12 @@ app.post("/articleentry", async function (req, res){
   res.json(data)
 })
 
+app.post("/listoutlines", async function (req, res){
+  let client = await connection.connect()
+  let data = await connection.listOutline(client, req.body)
+  res.json(data)
+})
+
 app.get("/", function (req, res) {
   console.log("route handler");
   res.send("Hello John!!");
