@@ -97,7 +97,7 @@ app.post("/articleentry", async function (req, res){
 
 app.post("/listoutlines", async function (req, res){
   let client = await connection.connect()
-  let data = await connection.listOutline(client, req.body)
+  let data = await connection.listOutlines(client, req.body)
   res.json(data)
 })
 
